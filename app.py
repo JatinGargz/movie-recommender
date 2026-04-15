@@ -8,8 +8,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 st.title("🎬 Smart Movie Recommender")
 
-movies = pd.read_csv("https://raw.githubusercontent.com/ashishpatel26/TMDB-Dataset/master/tmdb_5000_movies.csv")
-credits = pd.read_csv("https://raw.githubusercontent.com/ashishpatel26/TMDB-Dataset/master/tmdb_5000_credits.csv")
+movies = pd.read_csv("https://raw.githubusercontent.com/tmdb-5000-movie-dataset/tmdb_5000_movies.csv")
+credits = pd.read_csv("https://raw.githubusercontent.com/tmdb-5000-movie-dataset/tmdb_5000_credits.csv")
 
 tmdb = movies.merge(credits, on="title")
 
