@@ -5,11 +5,17 @@ import ast
 from difflib import get_close_matches
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import zipfile
+import os
 
+if not os.path.exists("tmdb_5000_movies.csv"):
+    with zipfile.ZipFile("tmdb_data.zip", 'r') as zip_ref:
+        zip_ref.extractall()
+      
 st.title("🎬 Smart Movie Recommender")
 
-movies = pd.read_csv("https://raw.githubusercontent.com/tmdb-5000-movie-dataset/tmdb_5000_movies.csv")
-credits = pd.read_csv("https://raw.githubusercontent.com/tmdb-5000-movie-dataset/tmdb_5000_credits.csv")
+movies = pd.read_csv("tmdb_5000_movies.csv")
+credits = pd.read_csv("tmdb_5000_credits.csv")
 
 tmdb = movies.merge(credits, on="title")
 
