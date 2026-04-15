@@ -8,7 +8,29 @@ from sklearn.metrics.pairwise import cosine_similarity
 import zipfile
 import os
 
-st.title("🎬 Smart Movie Recommender")
+st.set_page_config(page_title="Movie Recommender", layout="centered")
+
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #0E1117;
+        color: white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h1 style='text-align: center; color: #FF4B4B;'>🎬 Smart Movie Recommender</h1>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<p style='text-align: center;'>Find movies similar to your favorites</p>",
+    unsafe_allow_html=True
+)
 
 if not os.path.exists("tmdb_5000_movies.csv"):
     with zipfile.ZipFile("tmdb_data.zip", 'r') as zip_ref:
@@ -160,17 +182,30 @@ def recommend(movie_name, top_n=5):
 
     return scores[:top_n]
 
-movie = st.text_input("Enter Movie Name")
+movie = st.text_input("🔍 Search your movie...", placeholder="e.g. Titanic")
 
-if st.button("Recommend"):
+if st.button("✨ Recommend"):
     with st.spinner("Finding best movies..."):
         results = recommend(movie)
 
     if results:
+        st.markdown("## 🎯 Top Recommendations")
+
         for i, (title, score, reason, genres) in enumerate(results, 1):
-            st.write(f"{i}. {title}")
-            st.write(f"Genres: {genres}")
-            st.write(f"Reason: {reason}")
-            st.write("---")
+            st.markdown(
+                f"""
+                <div style="
+                    background-color:#1E1E1E;
+                    padding:15px;
+                    border-radius:10px;
+                    margin-bottom:10px;
+                ">
+                    <h3 style="color:#FF4B4B;">{i}. {title}</h3>
+                    <p><b>🎭 Genres:</b> {', '.join(genres)}</p>
+                    <p><b>⭐ Why:</b> {', '.join(reason)}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
     else:
         st.write("Movie not found")
