@@ -53,8 +53,6 @@ def preprocess(movies, credits):
     tmdb.dropna(inplace=True)
     tmdb.reset_index(drop=True, inplace=True)
 
-    tmdb = tmdb.head(3000)
-
     return tmdb
 
 @st.cache_resource
@@ -94,7 +92,7 @@ def build_model(tmdb):
 
     tmdb['tags'] = tmdb.apply(create_tags, axis=1)
 
-    tfidf = TfidfVectorizer(max_features=3000, stop_words='english')
+    tfidf = TfidfVectorizer(max_features=6000, stop_words='english')
     vectors = tfidf.fit_transform(tmdb['tags'])
 
     similarity = cosine_similarity(vectors)
