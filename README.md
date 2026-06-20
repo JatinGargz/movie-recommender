@@ -33,3 +33,5 @@ streamlit run app.py
 - Better recommendation ranking
 - Genre priority enhancement
 - UI improvements
+## Preview
+![Movie Recommender UI](assets/app-preview.jpg)
